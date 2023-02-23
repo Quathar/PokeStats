@@ -14,11 +14,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        val TAG = MainActivity::class.java.name
+        val PAGE_SIZE = 20
+        val ORDER_BY = "-releaseDate"
+    }
+
+
+
     // <<-FIELDS->>
+    private var _page = 1
+
     private lateinit var _service: PokemonSetsService
 
     // <<-METHODS->>
-    // <<-OVERRIDE->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,24 +39,28 @@ class MainActivity : AppCompatActivity() {
 
         _service = retrofit.create(PokemonSetsService::class.java)
 
-        var call = _service.listSets(1, 5, "-releaseDate")
+        loadSetChunk(_page,PAGE_SIZE, ORDER_BY)
+    }
 
-        call!!.enqueue(object : Callback<SetsChunk> {
+    private fun loadSetChunk(page: Int, pageSize: Int, orderBy: String) {
+        val call: Call<SetsChunk> = _service.listSets(page, pageSize, orderBy)
+
+        call.enqueue(object : Callback<SetsChunk> {
             override fun onResponse(call: Call<SetsChunk>, response: Response<SetsChunk>) {
-                if (response.isSuccessful()) {
-                    val body = response.body()?.data
-                    println(body);
-
+                if (response.isSuccessful) {
+                    val sets: List<Sets> = response.body()!!.data
+//                    _species.addAll(species)
+                    for (set in sets) {
+//                        Log.i(MainActivity.TAG, set.toString())
+                        println(set.toString())
+                    }
+                }
             }
 
-            fun onFailure(call: Call<SetsChunk>, t: Throwable) {
-                println("failed")
+            override fun onFailure(call: Call<SetsChunk>, t: Throwable) {
+                println("Something went wrong")
             }
         })
-
-
-
-//        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
     }
 
 }
