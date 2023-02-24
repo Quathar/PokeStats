@@ -1,3 +1,3 @@
 package com.iothar.android.api.model
 
-data class SetsChunk(val data: List<Sets>)
+data class SetsChunk(var data: List<Sets>)

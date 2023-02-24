@@ -25,11 +25,12 @@ android {
     buildTypes {
         // [2023-02-21] Q: To read the API-Key
         debug {
-            buildConfigField("String", "SECRET", apikeyProperties['SECRET'])
+            buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         }
     }
     compileOptions {

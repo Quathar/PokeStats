@@ -15,12 +15,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        val TAG = MainActivity::class.java.name
-        val PAGE_SIZE = 20
-        val ORDER_BY = "-releaseDate"
+        const val API_BASE_URL = "https://api.pokemontcg.io/v2/"
+        const val PAGE_SIZE = 5
+        const val ORDER_BY = "-releaseDate"
+        val TAG: String = MainActivity::class.java.name
     }
-
-
 
     // <<-FIELDS->>
     private var _page = 1
@@ -32,29 +31,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        val okHttpClient = OkHttpClient.Builder()
+
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.pokemontcg.io/v2/")
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+//        if () {
+//            val interceptor = AuthenticationInterceptor("sds")
+//        }
+//        okHttpClient.interceptors().contains(interceptor)
+
         _service = retrofit.create(PokemonSetsService::class.java)
 
-        loadSetChunk(_page,PAGE_SIZE, ORDER_BY)
+        loadSetChunk(BuildConfig.API_KEY, _page,PAGE_SIZE, ORDER_BY)
+        println(_page)
     }
 
-    private fun loadSetChunk(page: Int, pageSize: Int, orderBy: String) {
-        val call: Call<SetsChunk> = _service.listSets(page, pageSize, orderBy)
+    private fun loadSetChunk(auth: String, page: Int, pageSize: Int, orderBy: String) {
+        val call: Call<SetsChunk> = _service.listSets(auth, page, pageSize, orderBy)
 
         call.enqueue(object : Callback<SetsChunk> {
             override fun onResponse(call: Call<SetsChunk>, response: Response<SetsChunk>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful()) {
                     val sets: List<Sets> = response.body()!!.data
 //                    _species.addAll(species)
                     for (set in sets) {
-//                        Log.i(MainActivity.TAG, set.toString())
+//                        Log.i(TAG, set.toString())
                         println(set.toString())
                     }
-                }
+                    _page++
+                } else Log.e(TAG, response.errorBody().toString())
             }
 
             override fun onFailure(call: Call<SetsChunk>, t: Throwable) {
