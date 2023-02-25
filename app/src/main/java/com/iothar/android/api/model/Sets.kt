@@ -8,11 +8,8 @@ data class Sets(
     val total: Int,
     val images: Images
 ) {
-    // <<-OVERRIDE->>
-//    override fun toString(): String {
-//        return "Sets(id='$id', url=$url)"
-//    }
-    data class Images(val symbol: URI, val logo: URI)
-
-
+data class Images(
+    val symbol: URI,
+    val logo: URI
+)
 }
