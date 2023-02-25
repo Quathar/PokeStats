@@ -8,8 +8,8 @@ data class Sets(
     val total: Int,
     val images: Images
 ) {
-data class Images(
-    val symbol: URI,
-    val logo: URI
-)
+    data class Images(
+        val symbol: URI,
+        val logo: URI
+    )
 }

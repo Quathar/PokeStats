@@ -1,8 +1,12 @@
 package com.iothar.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helpers.AuthInterceptor
 import com.iothar.android.api.model.Sets
 import com.iothar.android.api.model.SetsChunk
@@ -22,15 +26,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     // <<-FIELDS->>
-    private var _page = 1
-
     private lateinit var _service: PokemonSetsService
+    private var _page = 1
+    private lateinit var _sets: List<Sets>
+    private lateinit var _adapter: SetsAdapter
 
     // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // API Calls Configuration
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
             .build()
@@ -43,6 +49,26 @@ class MainActivity : AppCompatActivity() {
 
         _service = retrofit.create(PokemonSetsService::class.java)
 
+        // Graphics
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        _adapter = SetsAdapter(_sets, object : SetsAdapter.OnSetsClickListener {
+            override fun onSetsClick(sets: Sets) {
+                val intent = Intent()
+                intent.setClass(this@MainActivity, SetsDetailsActivity::class.java)
+                intent.putExtra(SetsDetailsActivity.NAME_KEY, sets.name)
+                startActivity(intent)
+            }
+        })
+        recyclerView.adapter = _adapter
+
+        val scrollView = findViewById<ScrollView>(R.id.scrollview)
+//        scrollView.setOnScrollChangeListener {
+//            fun onScrollChanged() {
+//                loadSetChunk(_page)
+//            }
+//        }
+
         loadSetChunk(_page)
     }
 
@@ -52,9 +78,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<SetsChunk>, response: Response<SetsChunk>) {
                     if (response.isSuccessful) {
                         val sets: List<Sets> = response.body()!!.data
-//                        _species.addAll(species)
+                        _sets = _sets + sets
                         for (set in sets)
                             Log.i(TAG, set.toString())
+                        _adapter.notifyItemChanged(_page)
                         _page++
                     } else Log.e(TAG, response.errorBody().toString())
                 }
