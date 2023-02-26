@@ -1,7 +1,5 @@
 package com.iothar.android.api.model
 
-import java.net.URI
-
 data class Sets(
     val id: String,
     val name: String,
@@ -9,7 +7,7 @@ data class Sets(
     val images: Images
 ) {
     data class Images(
-        val symbol: URI,
-        val logo: URI
+        val symbol: String,
+        val logo: String
     )
 }

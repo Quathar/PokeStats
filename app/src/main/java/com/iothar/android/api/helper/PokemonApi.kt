@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object PokemonApi {
+
     private const val BASE_URL = "https://api.pokemontcg.io/v2/"
 
     private val okHttpClient = OkHttpClient.Builder()

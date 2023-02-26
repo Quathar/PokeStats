@@ -1,5 +1,5 @@
 package com.iothar.android.api.model
 
 data class SetsChunk(
-    var data: List<Sets>
+    val data: List<Sets>
 )

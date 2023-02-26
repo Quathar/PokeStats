@@ -9,8 +9,8 @@ interface PokemonSetsService {
 
     // <<-CONSTANTS->>
     companion object {
-        const val PAGE_SIZE = 5
-        const val ORDER_BY = "-releaseDate"
+        private const val PAGE_SIZE = 5
+        private const val ORDER_BY = "-releaseDate"
     }
 
     // <<-METHOD->>
@@ -20,5 +20,4 @@ interface PokemonSetsService {
         @Query("pageSize") pageSize: Int = PAGE_SIZE,
         @Query("orderBy") orderBy: String = ORDER_BY
     ): Call<SetsChunk>
-
 }

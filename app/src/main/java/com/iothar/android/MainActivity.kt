@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helper.PokemonApi
 import com.iothar.android.api.model.Sets
 import com.iothar.android.api.model.SetsChunk
-import com.iothar.android.graphics.adapter.SetsAdapter
+import com.iothar.android.recycler.adapter.SetsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     // <<-CONSTANTS->>
     companion object {
-        val TAG: String = MainActivity::class.java.name
+        private val TAG: String = MainActivity::class.java.name
     }
 
     // <<-FIELDS->>
