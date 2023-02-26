@@ -1,93 +1,71 @@
 package com.iothar.android
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.iothar.android.api.helpers.AuthInterceptor
+import com.iothar.android.api.helper.PokemonApi
 import com.iothar.android.api.model.Sets
 import com.iothar.android.api.model.SetsChunk
-import com.iothar.android.api.service.PokemonSetsService
-import okhttp3.OkHttpClient
+import com.iothar.android.graphics.adapter.SetsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    // <<-CONSTANTS->>
     companion object {
-        const val API_BASE_URL = "https://api.pokemontcg.io/v2/"
         val TAG: String = MainActivity::class.java.name
     }
 
     // <<-FIELDS->>
-    private lateinit var _service: PokemonSetsService
+    private lateinit var _setsAdapter: SetsAdapter
+    private lateinit var _recyclerSets: RecyclerView
+    private val _service = PokemonApi.setsService
+    private var _sets = ArrayList<Sets>()
     private var _page = 1
-    private lateinit var _sets: List<Sets>
-    private lateinit var _adapter: SetsAdapter
 
     // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // API Calls Configuration
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        _service = retrofit.create(PokemonSetsService::class.java)
-
-        // Graphics
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        _adapter = SetsAdapter(_sets, object : SetsAdapter.OnSetsClickListener {
-            override fun onSetsClick(sets: Sets) {
-                val intent = Intent()
-                intent.setClass(this@MainActivity, SetsDetailsActivity::class.java)
-                intent.putExtra(SetsDetailsActivity.NAME_KEY, sets.name)
-                startActivity(intent)
-            }
-        })
-        recyclerView.adapter = _adapter
-
-        val scrollView = findViewById<ScrollView>(R.id.scrollview)
-//        scrollView.setOnScrollChangeListener {
-//            fun onScrollChanged() {
-//                loadSetChunk(_page)
-//            }
-//        }
-
-        loadSetChunk(_page)
+        initRecyclerSets()
+        loadSetsChunk()
     }
 
-    private fun loadSetChunk(page: Int) {
-        _service.listSets(page)
+    private fun initRecyclerSets() {
+        _recyclerSets = findViewById(R.id.recycler_sets)
+        _recyclerSets.layoutManager = LinearLayoutManager(this)
+        _setsAdapter = SetsAdapter(_sets)
+        _recyclerSets.adapter = _setsAdapter
+
+        _recyclerSets.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1))
+                    loadSetsChunk()
+            }
+        })
+    }
+
+    private fun loadSetsChunk() {
+        _service.listSets(_page)
             .enqueue(object : Callback<SetsChunk> {
                 override fun onResponse(call: Call<SetsChunk>, response: Response<SetsChunk>) {
                     if (response.isSuccessful) {
-                        val sets: List<Sets> = response.body()!!.data
-                        _sets = _sets + sets
-                        for (set in sets)
-                            Log.i(TAG, set.toString())
-                        _adapter.notifyItemChanged(_page)
-                        _page++
-                    } else Log.e(TAG, response.errorBody().toString())
+                        val sets = response.body()!!.data
+                        if (sets.isNotEmpty()) {
+                            _sets.addAll(sets)
+                            _setsAdapter.notifyItemInserted(_page)
+                            _page++
+                        } else _recyclerSets.clearOnScrollListeners()
+                    }
                 }
 
                 override fun onFailure(call: Call<SetsChunk>, t: Throwable) {
-                    println("Something went wrong")
+                    Log.e(TAG, "Network Exception")
                 }
             })
     }
