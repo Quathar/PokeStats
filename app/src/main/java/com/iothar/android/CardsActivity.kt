@@ -5,49 +5,56 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Cards
 import com.iothar.android.api.model.CardsChunk
-import com.iothar.android.api.model.Sets
 import com.iothar.android.recycler.adapter.CardsAdapter
-import com.iothar.android.recycler.adapter.SetsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SetActivity : AppCompatActivity() {
+class CardsActivity : AppCompatActivity() {
 
     // <<-CONSTANTS->>
     companion object {
-        private val TAG: String = MainActivity::class.java.name
+        private val TAG: String = CardsActivity::class.java.name
         const val ID_KEY = "ID"
+
+        private const val SET_ID = "set.id:%s"
     }
 
     // <<-FIELDS->>
     private lateinit var _cardsAdapter: CardsAdapter
     private lateinit var _recyclerCards: RecyclerView
+    private lateinit var _setId: String
     private val _service = PokemonAPI.pokemonService
     private var _cards = ArrayList<Cards>()
     private var _page = 1
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.activity_set)
+    // <<-METHODS->>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Si pones esto no va
+        // persistentState: PersistableBundle?
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cards)
+
+        _setId = intent.getStringExtra(ID_KEY).toString()
 
         initRecyclerCards()
         loadCardsChunk()
     }
 
     private fun initRecyclerCards() {
-        _recyclerCards = findViewById(R.id.recycler_sets)
-        _recyclerCards.layoutManager = LinearLayoutManager(this)
+        _recyclerCards = findViewById(R.id.recycler_cards)
+        _recyclerCards.layoutManager = GridLayoutManager(this@CardsActivity, 3)
         _cardsAdapter = CardsAdapter(_cards, object : CardsAdapter.OnCardsClickListener {
             override fun onCardsClick(cards: Cards) {
-                val intent = Intent()
-                intent.setClass(this@SetActivity, CardActivity::class.java)
-//                intent.putExtra(SetActivity.ID_KEY, sets.id)
+                val intent = Intent(this@CardsActivity, CardsDetailsActivity::class.java).apply {
+                    putExtra(CardsDetailsActivity.ID_KEY, cards.id)
+                }
                 startActivity(intent)
             }
         })
@@ -63,7 +70,7 @@ class SetActivity : AppCompatActivity() {
     }
 
     private fun loadCardsChunk() {
-        _service.listCards(_page)
+        _service.listCards(_page, String.format(SET_ID, _setId))
             .enqueue(object : Callback<CardsChunk> {
                 override fun onResponse(call: Call<CardsChunk>, response: Response<CardsChunk>) {
                     if (response.isSuccessful) {

@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerSets() {
         _recyclerSets = findViewById(R.id.recycler_sets)
-        _recyclerSets.layoutManager = LinearLayoutManager(this)
+        _recyclerSets.layoutManager = LinearLayoutManager(this@MainActivity)
         _setsAdapter = SetsAdapter(_sets, object : SetsAdapter.OnSetClickListener {
             override fun onSetsClick(sets: Sets) {
-                val intent = Intent()
-                intent.setClass(this@MainActivity, SetActivity::class.java)
-//                intent.putExtra(SetActivity.ID_KEY, sets.id)
+                val intent = Intent(this@MainActivity, CardsActivity::class.java).apply {
+                    putExtra(CardsActivity.ID_KEY, sets.id)
+                }
                 startActivity(intent)
             }
         })

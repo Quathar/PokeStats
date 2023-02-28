@@ -29,8 +29,8 @@ interface PokemonService {
     @GET("cards")
     fun listCards(
         @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int = CARDS_SIZE,
-        @Query("q") q: String = SET_ID
+        @Query("q") q: String,
+        @Query("pageSize") pageSize: Int = CARDS_SIZE
     ): Call<CardsChunk>
 
     @GET("cards/{id}")
