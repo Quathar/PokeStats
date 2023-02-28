@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initRecyclerSets()
         loadSetsChunk()
     }
@@ -39,12 +40,12 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerSets() {
         _recyclerSets = findViewById(R.id.recycler_sets)
         _recyclerSets.layoutManager = LinearLayoutManager(this@MainActivity)
-        _setsAdapter = SetsAdapter(_sets, object : SetsAdapter.OnSetClickListener {
+        _setsAdapter = SetsAdapter(_sets, object : SetsAdapter.OnSetsClickListener {
             override fun onSetsClick(sets: Sets) {
-                val intent = Intent(this@MainActivity, CardsActivity::class.java).apply {
-                    putExtra(CardsActivity.ID_KEY, sets.id)
-                }
-                startActivity(intent)
+                startActivity(
+                    Intent(this@MainActivity, CardsActivity::class.java)
+                        .apply { putExtra(CardsActivity.ID_KEY, sets.id) }
+                )
             }
         })
         _recyclerSets.adapter = _setsAdapter

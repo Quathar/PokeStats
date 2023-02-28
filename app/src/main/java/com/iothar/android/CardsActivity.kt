@@ -2,11 +2,9 @@ package com.iothar.android
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Cards
@@ -52,10 +50,10 @@ class CardsActivity : AppCompatActivity() {
         _recyclerCards.layoutManager = GridLayoutManager(this@CardsActivity, 3)
         _cardsAdapter = CardsAdapter(_cards, object : CardsAdapter.OnCardsClickListener {
             override fun onCardsClick(cards: Cards) {
-                val intent = Intent(this@CardsActivity, CardsDetailsActivity::class.java).apply {
-                    putExtra(CardsDetailsActivity.ID_KEY, cards.id)
-                }
-                startActivity(intent)
+                startActivity(
+                    Intent(this@CardsActivity, CardsDetailsActivity::class.java)
+                        .apply { putExtra(CardsDetailsActivity.ID_KEY, cards.id) }
+                )
             }
         })
         _recyclerCards.adapter = _cardsAdapter

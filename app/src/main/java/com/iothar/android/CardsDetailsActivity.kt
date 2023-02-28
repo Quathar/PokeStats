@@ -3,9 +3,12 @@ package com.iothar.android
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.iothar.android.api.helper.PokemonAPI
+import com.iothar.android.api.model.Cards
 import com.iothar.android.api.model.CardsDetails
 import com.iothar.android.recycler.adapter.CardsAdapter
 import retrofit2.Call
@@ -21,8 +24,6 @@ class CardsDetailsActivity : AppCompatActivity() {
     }
 
     // <<-FIELDS->>
-    private lateinit var _cardsAdapter: CardsAdapter
-    private lateinit var _recyclerCards: RecyclerView
     private lateinit var _cardId: String
     private val _service = PokemonAPI.pokemonService
 
@@ -31,6 +32,7 @@ class CardsDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cards_details)
 
         _cardId = intent.getStringExtra(ID_KEY).toString()
+        loadCard()
     }
 
     private fun loadCard() {
@@ -38,11 +40,9 @@ class CardsDetailsActivity : AppCompatActivity() {
             .enqueue(object : Callback<CardsDetails> {
                 override fun onResponse(call: Call<CardsDetails>, response: Response<CardsDetails>) {
                     if (response.isSuccessful) {
-                        val card = response.body()!!.data
-                        println(card[0])
-                        if (card.isNotEmpty()) {
-//                            _cardsAdapter.notifyItemInserted(_page)
-                        } else _recyclerCards.clearOnScrollListeners()
+                        val card = response.body()!!.data[0]
+                        bind(card)
+                        Log.i("Goofy", card.toString())
                     }
                 }
 
@@ -50,6 +50,13 @@ class CardsDetailsActivity : AppCompatActivity() {
                     Log.e(TAG, "Network Exception")
                 }
             })
+    }
+
+    private fun bind(card: CardsDetails.Card) {
+        val _image = findViewById<ImageView>(R.id.imageView)
+        Glide.with(_image.context)
+            .load(card.images.large)
+            .into(_image)
     }
 
 }

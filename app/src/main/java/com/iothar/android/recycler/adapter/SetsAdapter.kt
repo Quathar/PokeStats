@@ -9,18 +9,18 @@ import com.iothar.android.recycler.holder.SetsViewHolder
 
 class SetsAdapter(
     private val setsList: List<Sets>,
-    private val onSetClickListener: OnSetClickListener
+    private val onSetsClickListener: OnSetsClickListener
 ) : RecyclerView.Adapter<SetsViewHolder>() {
 
     // <<-INTERFACE->>
-    interface OnSetClickListener {
+    interface OnSetsClickListener {
         fun onSetsClick(sets: Sets)
     }
 
     // <<-OVERRIDE->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_sets, parent, false)
-        return SetsViewHolder(view, onSetClickListener)
+        return SetsViewHolder(view, onSetsClickListener)
     }
 
     override fun onBindViewHolder(holder: SetsViewHolder, position: Int) = holder.bind(setsList[position])

@@ -5,7 +5,7 @@ data class Cards(
     val name: String,
     val images: Images
 ) {
-    class Images(
+    data class Images(
         val small: String,
         val large: String
     )

@@ -9,7 +9,7 @@ import com.iothar.android.recycler.holder.CardsViewHolder
 
 class CardsAdapter(
     private val cardsList: List<Cards>,
-    private val onCardClickListener: OnCardsClickListener
+    private val onCardsClickListener: OnCardsClickListener
 ) : RecyclerView.Adapter<CardsViewHolder>() {
 
     // <<-INTERFACE->>
@@ -20,7 +20,7 @@ class CardsAdapter(
     // <<-OVERRIDE->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cards, parent, false)
-        return CardsViewHolder(view, onCardClickListener)
+        return CardsViewHolder(view, onCardsClickListener)
     }
 
     override fun onBindViewHolder(holder: CardsViewHolder, position: Int) = holder.bind(cardsList[position])

@@ -13,4 +13,5 @@ class AuthInterceptor(private val authToken: String) : Interceptor {
 
         return chain.proceed(request)
     }
+
 }
