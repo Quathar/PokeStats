@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">E4-AplicacionMovil</string>
     <string name="set_logo">Set Logo</string>
+    <string name="card_image">Card Image</string>
 </resources>

@@ -1,11 +1,12 @@
 package com.iothar.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.iothar.android.api.helper.PokemonApi
+import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Sets
 import com.iothar.android.api.model.SetsChunk
 import com.iothar.android.recycler.adapter.SetsAdapter
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     // <<-FIELDS->>
     private lateinit var _setsAdapter: SetsAdapter
     private lateinit var _recyclerSets: RecyclerView
-    private val _service = PokemonApi.setsService
+    private val _service = PokemonAPI.pokemonService
     private var _sets = ArrayList<Sets>()
     private var _page = 1
 
@@ -38,7 +39,14 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerSets() {
         _recyclerSets = findViewById(R.id.recycler_sets)
         _recyclerSets.layoutManager = LinearLayoutManager(this)
-        _setsAdapter = SetsAdapter(_sets)
+        _setsAdapter = SetsAdapter(_sets, object : SetsAdapter.OnSetClickListener {
+            override fun onSetsClick(sets: Sets) {
+                val intent = Intent()
+                intent.setClass(this@MainActivity, SetActivity::class.java)
+//                intent.putExtra(SetActivity.ID_KEY, sets.id)
+                startActivity(intent)
+            }
+        })
         _recyclerSets.adapter = _setsAdapter
 
         _recyclerSets.addOnScrollListener(object : RecyclerView.OnScrollListener() {

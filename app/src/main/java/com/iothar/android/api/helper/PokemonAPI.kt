@@ -1,15 +1,17 @@
 package com.iothar.android.api.helper
 
 import com.iothar.android.BuildConfig
-import com.iothar.android.api.service.PokemonSetsService
+import com.iothar.android.api.service.PokemonService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object PokemonApi {
+object PokemonAPI {
 
+    // <<-CONSTANT->>
     private const val BASE_URL = "https://api.pokemontcg.io/v2/"
 
+    // <<-FIELDS->>
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
         .build()
@@ -20,7 +22,8 @@ object PokemonApi {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val setsService: PokemonSetsService by lazy {
-        retrofit.create(PokemonSetsService::class.java)
+    val pokemonService: PokemonService by lazy {
+        retrofit.create(PokemonService::class.java)
     }
+
 }

@@ -7,14 +7,23 @@ import com.iothar.android.R
 import com.iothar.android.api.model.Sets
 import com.iothar.android.recycler.holder.SetsViewHolder
 
-class SetsAdapter(private val sets: List<Sets>) : RecyclerView.Adapter<SetsViewHolder>() {
+class SetsAdapter(
+    private val setsList: List<Sets>,
+    private val onSetClickListener: OnSetClickListener
+) : RecyclerView.Adapter<SetsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_sets, parent, false)
-        return SetsViewHolder(view)
+    // <<-INTERFACE->>
+    interface OnSetClickListener {
+        fun onSetsClick(sets: Sets)
     }
 
-    override fun onBindViewHolder(holder: SetsViewHolder, position: Int) = holder.bind(sets[position])
+    // <<-OVERRIDE->>
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_sets, parent, false)
+        return SetsViewHolder(view, onSetClickListener)
+    }
 
-    override fun getItemCount(): Int = sets.size
+    override fun onBindViewHolder(holder: SetsViewHolder, position: Int) = holder.bind(setsList[position])
+
+    override fun getItemCount(): Int = setsList.size
 }

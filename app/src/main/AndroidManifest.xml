@@ -28,5 +28,11 @@
                     android:name="android.app.lib_name"
                     android:value=""/>
         </activity>
+        <activity
+                android:name=".SetActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".CardActivity"
+                android:exported="false"/>
     </application>
 </manifest>
