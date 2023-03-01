@@ -38,7 +38,8 @@ class CardsDetailsActivity : AppCompatActivity() {
             .enqueue(object : Callback<CardsDetails> {
                 override fun onResponse(call: Call<CardsDetails>, response: Response<CardsDetails>) {
                     if (response.isSuccessful) {
-                        val card = response.body()!!.data[0]
+                        val card = response.body()!!.data
+                        println(card)
                         bind(card)
                         Log.i("Goofy", card.toString())
                     }
@@ -51,7 +52,7 @@ class CardsDetailsActivity : AppCompatActivity() {
     }
 
     private fun bind(card: CardsDetails.Card) {
-        val image = findViewById<ImageView>(R.id.imageView)
+        val image = findViewById<ImageView>(R.id.image_view)
         Glide.with(image.context)
             .load(card.images.large)
             .into(image)

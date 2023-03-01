@@ -1,7 +1,7 @@
 package com.iothar.android.api.model
 
 data class CardsDetails(
-    val data: List<Card>
+    val data: Card
 ) {
     data class Card(
         val name: String,
