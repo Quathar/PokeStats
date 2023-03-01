@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Cards
 import com.iothar.android.api.model.CardsChunk
+import com.iothar.android.api.service.PokemonService
 import com.iothar.android.recycler.adapter.CardsAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,9 +20,7 @@ class CardsActivity : AppCompatActivity() {
     // <<-CONSTANTS->>
     companion object {
         private val TAG: String = CardsActivity::class.java.name
-        const val ID_KEY = "ID"
-
-        private const val SET_ID = "set.id:%s"
+        const val SET_ID_KEY = "SET_ID"
     }
 
     // <<-FIELDS->>
@@ -34,12 +33,10 @@ class CardsActivity : AppCompatActivity() {
 
     // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Si pones esto no va
-        // persistentState: PersistableBundle?
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
 
-        _setId = intent.getStringExtra(ID_KEY).toString()
+        _setId = intent.getStringExtra(SET_ID_KEY).toString()
 
         initRecyclerCards()
         loadCardsChunk()
@@ -52,7 +49,7 @@ class CardsActivity : AppCompatActivity() {
             override fun onCardsClick(cards: Cards) {
                 startActivity(
                     Intent(this@CardsActivity, CardsDetailsActivity::class.java)
-                        .apply { putExtra(CardsDetailsActivity.ID_KEY, cards.id) }
+                        .apply { putExtra(CardsDetailsActivity.CARD_ID_KEY, cards.id) }
                 )
             }
         })
@@ -68,15 +65,19 @@ class CardsActivity : AppCompatActivity() {
     }
 
     private fun loadCardsChunk() {
-        _service.listCards(_page, String.format(SET_ID, _setId))
+        _service.listCards(_page, PokemonService.SET_ID.format(_setId))
             .enqueue(object : Callback<CardsChunk> {
                 override fun onResponse(call: Call<CardsChunk>, response: Response<CardsChunk>) {
                     if (response.isSuccessful) {
                         val cards = response.body()!!.data
+                        println("OPA1")
+                        println(cards.toString())
                         if (cards.isNotEmpty()) {
                             _cards.addAll(cards)
                             _cardsAdapter.notifyItemInserted(_page)
                             _page++
+                            println("OPA2")
+                            println(_cards.toString())
                         } else _recyclerCards.clearOnScrollListeners()
                     }
                 }

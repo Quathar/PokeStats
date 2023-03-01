@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">E4-AplicacionMovil</string>
-    <string name="set_logo">Set Logo</string>
+    <string name="app_name">PokeStats</string>
+    <string name="set_logo">Set Logo Image</string>
     <string name="card_image">Card Image</string>
+    <string name="set_symbol">Set Symbol Image</string>
 </resources>

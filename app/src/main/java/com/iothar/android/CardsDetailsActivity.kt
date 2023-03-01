@@ -5,12 +5,9 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iothar.android.api.helper.PokemonAPI
-import com.iothar.android.api.model.Cards
 import com.iothar.android.api.model.CardsDetails
-import com.iothar.android.recycler.adapter.CardsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,18 +17,19 @@ class CardsDetailsActivity : AppCompatActivity() {
     // <<-CONSTANTS->>
     companion object {
         private val TAG: String = CardsDetailsActivity::class.java.name
-        const val ID_KEY = "ID"
+        const val CARD_ID_KEY = "CARD_ID"
     }
 
     // <<-FIELDS->>
     private lateinit var _cardId: String
     private val _service = PokemonAPI.pokemonService
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards_details)
 
-        _cardId = intent.getStringExtra(ID_KEY).toString()
+        _cardId = intent.getStringExtra(CARD_ID_KEY).toString()
+
         loadCard()
     }
 
@@ -53,10 +51,10 @@ class CardsDetailsActivity : AppCompatActivity() {
     }
 
     private fun bind(card: CardsDetails.Card) {
-        val _image = findViewById<ImageView>(R.id.imageView)
-        Glide.with(_image.context)
+        val image = findViewById<ImageView>(R.id.imageView)
+        Glide.with(image.context)
             .load(card.images.large)
-            .into(_image)
+            .into(image)
     }
 
 }

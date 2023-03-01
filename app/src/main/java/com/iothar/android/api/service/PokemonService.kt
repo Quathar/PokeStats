@@ -12,10 +12,10 @@ interface PokemonService {
 
     // <<-CONSTANTS->>
     companion object {
-        private const val SETS_SIZE = 5
-        private const val CARDS_SIZE = 9
+        private const val SETS_SIZE = 6
+        private const val CARDS_SIZE = 12
         private const val ORDER_BY = "-releaseDate"
-        private const val SET_ID = "set.id:%s"
+        const val SET_ID = "set.id:%s"
     }
 
     // <<-METHOD->>

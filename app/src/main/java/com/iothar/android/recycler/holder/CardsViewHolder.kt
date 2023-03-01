@@ -13,13 +13,13 @@ class CardsViewHolder(
     private val onCardsClickListener: CardsAdapter.OnCardsClickListener
 ) : RecyclerView.ViewHolder(view) {
 
-    private val _logo = view.findViewById<ImageButton>(R.id.card_image)
+    private val _image = view.findViewById<ImageButton>(R.id.card_image)
 
     fun bind(cards: Cards) {
-        _logo.setOnClickListener { onCardsClickListener.onCardsClick(cards) }
-        Glide.with(_logo.context)
+        _image.setOnClickListener { onCardsClickListener.onCardsClick(cards) }
+        Glide.with(_image.context)
             .load(cards.images.small)
-            .into(_logo)
+            .into(_image)
     }
 
 }

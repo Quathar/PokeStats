@@ -14,11 +14,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class SetsActivity : AppCompatActivity() {
 
     // <<-CONSTANTS->>
     companion object {
-        private val TAG: String = MainActivity::class.java.name
+        private val TAG: String = SetsActivity::class.java.name
     }
 
     // <<-FIELDS->>
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     // <<-METHODS->>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_sets)
 
         initRecyclerSets()
         loadSetsChunk()
@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerSets() {
         _recyclerSets = findViewById(R.id.recycler_sets)
-        _recyclerSets.layoutManager = LinearLayoutManager(this@MainActivity)
+        _recyclerSets.layoutManager = LinearLayoutManager(this@SetsActivity)
         _setsAdapter = SetsAdapter(_sets, object : SetsAdapter.OnSetsClickListener {
             override fun onSetsClick(sets: Sets) {
                 startActivity(
-                    Intent(this@MainActivity, CardsActivity::class.java)
-                        .apply { putExtra(CardsActivity.ID_KEY, sets.id) }
+                    Intent(this@SetsActivity, CardsActivity::class.java)
+                        .apply { putExtra(CardsActivity.SET_ID_KEY, sets.id) }
                 )
             }
         })
