@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Sets
 import com.iothar.android.api.model.SetsChunk
-import com.iothar.android.recycler.adapter.SetsAdapter
+import com.iothar.android.recycler.sets.SetsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

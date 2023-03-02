@@ -10,7 +10,7 @@ import com.iothar.android.api.helper.PokemonAPI
 import com.iothar.android.api.model.Cards
 import com.iothar.android.api.model.CardsChunk
 import com.iothar.android.api.service.PokemonService
-import com.iothar.android.recycler.adapter.CardsAdapter
+import com.iothar.android.recycler.cards.CardsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,14 +70,10 @@ class CardsActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<CardsChunk>, response: Response<CardsChunk>) {
                     if (response.isSuccessful) {
                         val cards = response.body()!!.data
-                        println("OPA1")
-                        println(cards.toString())
                         if (cards.isNotEmpty()) {
                             _cards.addAll(cards)
                             _cardsAdapter.notifyItemInserted(_page)
                             _page++
-                            println("OPA2")
-                            println(_cards.toString())
                         } else _recyclerCards.clearOnScrollListeners()
                     }
                 }

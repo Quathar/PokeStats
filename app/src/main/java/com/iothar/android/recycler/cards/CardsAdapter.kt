@@ -1,11 +1,10 @@
-package com.iothar.android.recycler.adapter
+package com.iothar.android.recycler.cards
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.R
 import com.iothar.android.api.model.Cards
-import com.iothar.android.recycler.holder.CardsViewHolder
 
 class CardsAdapter(
     private val cardsList: List<Cards>,

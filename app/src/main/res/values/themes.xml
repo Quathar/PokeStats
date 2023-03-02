@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.E4AplicacionMovil" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.PokeStats" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red_500</item>
-        <item name="colorPrimaryVariant">@color/red_500</item>
+        <item name="colorPrimary">@color/red_pokeball</item>
+        <item name="colorPrimaryVariant">@color/red_pokeball</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowSplashScreenBackground">@color/red_pokeball</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
     </style>
 </resources>

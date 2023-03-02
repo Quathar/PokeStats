@@ -12,7 +12,6 @@ data class CardsDetails(
         val cardMarket: CardMarket
     ) {
         data class Images(
-            val small: String,
             val large: String,
         )
 

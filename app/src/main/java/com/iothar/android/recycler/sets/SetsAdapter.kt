@@ -1,11 +1,10 @@
-package com.iothar.android.recycler.adapter
+package com.iothar.android.recycler.sets
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iothar.android.R
 import com.iothar.android.api.model.Sets
-import com.iothar.android.recycler.holder.SetsViewHolder
 
 class SetsAdapter(
     private val setsList: List<Sets>,

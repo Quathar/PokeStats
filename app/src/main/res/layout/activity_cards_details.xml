@@ -6,38 +6,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-    <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.499"
+    <ImageView
+            android:id="@+id/card_image_large"
+            android:contentDescription="@string/card_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
 
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.65">-->
 
-        <ImageView
-                android:id="@+id/image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars"/>
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Card Info"/>-->
 
-        <com.google.android.material.tabs.TabLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Card Market"/>-->
 
-            <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Card info" />
-
-            <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Market" />
-        </com.google.android.material.tabs.TabLayout>
-
-    </androidx.cardview.widget.CardView>
+<!--    </com.google.android.material.tabs.TabLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.iothar.android
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,9 +38,7 @@ class CardsDetailsActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<CardsDetails>, response: Response<CardsDetails>) {
                     if (response.isSuccessful) {
                         val card = response.body()!!.data
-                        println(card)
                         bind(card)
-                        Log.i("Goofy", card.toString())
                     }
                 }
 
@@ -52,7 +49,7 @@ class CardsDetailsActivity : AppCompatActivity() {
     }
 
     private fun bind(card: CardsDetails.Card) {
-        val image = findViewById<ImageView>(R.id.image_view)
+        val image = findViewById<ImageView>(R.id.card_image_large)
         Glide.with(image.context)
             .load(card.images.large)
             .into(image)
