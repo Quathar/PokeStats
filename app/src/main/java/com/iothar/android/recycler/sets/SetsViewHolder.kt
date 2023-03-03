@@ -16,11 +16,12 @@ class SetsViewHolder(
 
     // <<-FIELDS->>
     private lateinit var _sets: Sets
-    private val _view = view.findViewById<CardView>(R.id.set_view)
-    private val _logo = view.findViewById<ImageView>(R.id.set_logo)
+    private val _view   = view.findViewById<CardView>(R.id.set_view)
+    private val _logo   = view.findViewById<ImageView>(R.id.set_logo)
     private val _symbol = view.findViewById<ImageView>(R.id.set_symbol)
-    private val _name = view.findViewById<TextView>(R.id.set_name)
+    private val _name   = view.findViewById<TextView>(R.id.set_name)
 
+    // <<-METHODS->>
     init {
         _view.setOnClickListener { onSetsClickListener.onSetsClick(_sets) }
     }
@@ -33,7 +34,7 @@ class SetsViewHolder(
         Glide.with(_symbol.context)
             .load(sets.images.symbol)
             .into(_symbol)
-        _name.text = sets.name
+        _name.text = _sets.name
     }
 
 }

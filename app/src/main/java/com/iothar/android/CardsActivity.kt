@@ -24,8 +24,8 @@ class CardsActivity : AppCompatActivity() {
     }
 
     // <<-FIELDS->>
-    private lateinit var _cardsAdapter: CardsAdapter
     private lateinit var _recyclerCards: RecyclerView
+    private lateinit var _cardsAdapter: CardsAdapter
     private lateinit var _setId: String
     private val _service = PokemonAPI.pokemonService
     private var _cards = ArrayList<Cards>()
@@ -75,11 +75,11 @@ class CardsActivity : AppCompatActivity() {
                             _cardsAdapter.notifyItemInserted(_page)
                             _page++
                         } else _recyclerCards.clearOnScrollListeners()
-                    }
+                    } else Log.e(TAG, response.errorBody().toString())
                 }
 
                 override fun onFailure(call: Call<CardsChunk>, t: Throwable) {
-                    Log.e(TAG, "Network Exception")
+                    Log.e(TAG, t.localizedMessage!!)
                 }
             })
     }

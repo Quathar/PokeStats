@@ -16,14 +16,14 @@ import retrofit2.Response
 
 class SetsActivity : AppCompatActivity() {
 
-    // <<-CONSTANTS->>
+    // <<-CONSTANT->>
     companion object {
         private val TAG: String = SetsActivity::class.java.name
     }
 
     // <<-FIELDS->>
-    private lateinit var _setsAdapter: SetsAdapter
     private lateinit var _recyclerSets: RecyclerView
+    private lateinit var _setsAdapter: SetsAdapter
     private val _service = PokemonAPI.pokemonService
     private var _sets = ArrayList<Sets>()
     private var _page = 1
@@ -70,11 +70,11 @@ class SetsActivity : AppCompatActivity() {
                             _setsAdapter.notifyItemInserted(_page)
                             _page++
                         } else _recyclerSets.clearOnScrollListeners()
-                    }
+                    } else Log.e(TAG, response.errorBody().toString())
                 }
 
                 override fun onFailure(call: Call<SetsChunk>, t: Throwable) {
-                    Log.e(TAG, "Network Exception")
+                    Log.e(TAG, t.localizedMessage!!)
                 }
             })
     }

@@ -5,6 +5,6 @@
     <string name="card_image">Card Image</string>
     <string name="card_info">Card Info</string>
     <string name="card_market">Card Market</string>
-    <string name="card_info_details">%s%nName = %s%nRarity = #%s (%s)</string>
-    <string name="card_market_details">Last Updated Price: %s%nAverage Sell Price = %.2f%nLow Price = %.2f%nTrend Price = %.2f</string>
+    <string name="card_info_details">[ #%s ]%n%s (%s)%n-%n%s%n-</string>
+    <string name="card_market_details">Low Price = %s%.2f%nTrend Price = %s%02.2f%nAverage Sell Price = %s%.2f%nLast Updated Price: %s%n</string>
 </resources>

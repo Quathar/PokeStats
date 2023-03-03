@@ -12,9 +12,11 @@ class CardsViewHolder(
     private val onCardsClickListener: CardsAdapter.OnCardsClickListener
 ) : RecyclerView.ViewHolder(view) {
 
+    // <<-FIELDS->>
     private lateinit var _cards: Cards
     private val _image = view.findViewById<ImageButton>(R.id.card_image_small)
 
+    // <<-METHODS->>
     init {
         _image.setOnClickListener { onCardsClickListener.onCardsClick(_cards) }
     }
@@ -22,7 +24,7 @@ class CardsViewHolder(
     fun bind(cards: Cards) {
         _cards = cards
         Glide.with(_image.context)
-            .load(cards.images.small)
+            .load(_cards.images.small)
             .into(_image)
     }
 

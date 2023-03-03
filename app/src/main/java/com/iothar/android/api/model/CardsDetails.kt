@@ -3,18 +3,23 @@ package com.iothar.android.api.model
 data class CardsDetails(
     val data: Card
 ) {
+    companion object {
+        const val DEFAULT_FLAVOR = "No description"
+        const val DOLLAR = "$"
+    }
+
     data class Card(
         val name: String,
         val number: String,
         val rarity: String,
         val flavorText: String,
         val images: Images,
-        val cardmarket: Cardmarket
+        val cardmarket: CardMarket
     ) {
         data class Images(
             val large: String,
         )
-        data class Cardmarket(
+        data class CardMarket(
             val updatedAt: String,
             val prices: Prices
         ) {

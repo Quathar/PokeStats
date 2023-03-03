@@ -18,7 +18,7 @@ interface PokemonService {
         const val SET_ID = "set.id:%s"
     }
 
-    // <<-METHOD->>
+    // <<-METHODS->>
     @GET("sets")
     fun listSets(
         @Query("page") page: Int,

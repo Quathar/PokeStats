@@ -16,7 +16,7 @@ class CardsAdapter(
         fun onCardsClick(cards: Cards)
     }
 
-    // <<-OVERRIDE->>
+    // <<-METHODS->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cards, parent, false)
         return CardsViewHolder(view, onCardsClickListener)

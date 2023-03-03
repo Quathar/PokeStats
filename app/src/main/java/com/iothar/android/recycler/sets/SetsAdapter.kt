@@ -16,7 +16,7 @@ class SetsAdapter(
         fun onSetsClick(sets: Sets)
     }
 
-    // <<-OVERRIDE->>
+    // <<-METHODS->>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_sets, parent, false)
         return SetsViewHolder(view, onSetsClickListener)

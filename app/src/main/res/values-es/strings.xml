@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PokeStats</string>
+    <string name="set_logo">Logo del set</string>
+    <string name="set_symbol">Símbolo del set</string>
+    <string name="card_image">Imagen de la carta</string>
+    <string name="card_info">Información de la carta</string>
+    <string name="card_market">Mercado</string>
+    <string name="card_info_details">[ #%s ]%n%s (%s)%n-%n%s%n-</string>
+    <string name="card_market_details">Precio más bajo = %s%.2f%nPrecio más alto = %s%02.2f%nPrecio medio de venta = %s%.2f%nPrecio última vez actualizado desde: %s%n</string>
+</resources>
