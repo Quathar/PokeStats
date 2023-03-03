@@ -21,8 +21,8 @@ All the app views are shown below with light and dark themes.
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
     padding: 2rem;">
-    <img src="img/sets.jpg" width="420">
-    <img src="img/sets_dark.jpg" width="420">
+    <img src="img/sets.jpg" width="400">
+    <img src="img/sets_dark.jpg" width="400">
 </div>
 
 ## 🃏 Cards View
@@ -30,8 +30,8 @@ All the app views are shown below with light and dark themes.
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
     padding: 2rem;">
-    <img src="img/cards.jpg" width="420">
-    <img src="img/cards_dark.jpg" width="420">
+    <img src="img/cards.jpg" width="400">
+    <img src="img/cards_dark.jpg" width="400">
 </div>
 
 ## 📖 Card Details View
@@ -39,8 +39,8 @@ All the app views are shown below with light and dark themes.
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
     padding: 2rem;">
-    <img src="img/cardImage.jpg" width="420">
-    <img src="img/cardDetails.jpg" width="420">
-    <img src="img/cardImage_dark.jpg" width="420">
-    <img src="img/cardDetails_dark.jpg" width="420">
+    <img src="img/cardImage.jpg" width="400">
+    <img src="img/cardDetails.jpg" width="400">
+    <img src="img/cardImage_dark.jpg" width="400">
+    <img src="img/cardDetails_dark.jpg" width="400">
 </div>
