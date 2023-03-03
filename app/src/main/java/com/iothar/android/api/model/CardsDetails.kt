@@ -9,21 +9,19 @@ data class CardsDetails(
         val rarity: String,
         val flavorText: String,
         val images: Images,
-        val cardMarket: CardMarket
+        val cardmarket: Cardmarket
     ) {
         data class Images(
             val large: String,
         )
-
-        data class CardMarket(
-            val url: String,
+        data class Cardmarket(
             val updatedAt: String,
             val prices: Prices
         ) {
             data class Prices(
-                val averageSellPrice: Int,
-                val lowPrice: Int,
-                val trendPrice: Int
+                val averageSellPrice: Double,
+                val lowPrice: Double,
+                val trendPrice: Double
             )
         }
     }

@@ -7,7 +7,6 @@ android {
     namespace 'com.iothar.android'
     compileSdk 33
 
-    // [2023-02-21] Q: To read the API-Key
     def apikeyPropertiesFile = rootProject.file("apikey.properties")
     def apikeyProperties = new Properties()
     apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
@@ -18,12 +17,10 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        // [2023-02-21] Q: To read the API-Key
         debug {
             buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         }
