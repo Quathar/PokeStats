@@ -1,18 +1,5 @@
-<style>
-    .center { text-align: center }
-
-    #title { font-size: 2.5rem }
-
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 2rem;
-        padding: 2rem;
-    }
-</style>
-
-# <div id="title" class="center">📱 Mobile Application</div>
-## <div class="center">🌌 _[Quathar][Q] & [Rakioth][R]_ 💊</div>
+# <div style="text-align: center">📱 Mobile Application</div>
+## <div style="text-align: center">🌌 _[Quathar][Q] & [Rakioth][R]_ 💊</div>
 
 [Q]: https://github.com/Quathar
 [R]: https://github.com/Rakioth
@@ -23,29 +10,38 @@ In this application you can search for the sets and their respective cards avail
 
 API manipulation is done via [Retrofit](https://square.github.io/retrofit/).
 
-# <div class="center">🌆 Views</div>
+# <div style="text-align: center">🌆 Views</div>
 
 The application contains 3 different views.
 In the sets view you can search the sets of cards you are interested in, once you touch one set you will be in the cards view, where you can see all the cards of that set and finally, if you touch a card, you will see the card graphics and a brief information about it.
 
 All the app views are shown below with light and dark themes.
 
-## <div class="center">🗃️ Sets View</div>
-<div class="grid">
-    <img src="img/sets.jpg">
-    <img src="img/sets_dark.jpg">
+## <div style="text-align: center">🗃️ Sets View</div>
+<div style="display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 2rem;">
+    <img src="img/sets.jpg" width="290">
+    <img src="img/sets_dark.jpg" width="290">
 </div>
 
-## <div class="center">🃏 Cards View</div>
-<div class="grid">
-    <img src="img/cards.jpg">
-    <img src="img/cards_dark.jpg">
+## <div style="text-align: center">🃏 Cards View</div>
+<div style="display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 2rem;">
+    <img src="img/cards.jpg" width="290">
+    <img src="img/cards_dark.jpg" width="290">
 </div>
 
-## <div class="center">📖 Card Details View</div>
-<div class="grid">
-    <img src="img/cardImage.jpg">
-    <img src="img/cardDetails.jpg">
-    <img src="img/cardImage_dark.jpg">
-    <img src="img/cardDetails_dark.jpg">
+## <div style="text-align: center">📖 Card Details View</div>
+<div style="display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 2rem;">
+    <img src="img/cardImage.jpg" width="290">
+    <img src="img/cardDetails.jpg" width="290">
+    <img src="img/cardImage_dark.jpg" width="290">
+    <img src="img/cardDetails_dark.jpg" width="290">
 </div>
